@@ -1,0 +1,58 @@
+:root {
+  color-scheme: dark;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: radial-gradient(ellipse at top, #0b1d3a, #020409 60%);
+  color: #ffffff;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#globe-container {
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  display: block;
+}
+
+.instructions {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  max-width: 18rem;
+  padding: 1rem 1.25rem;
+  background: rgba(7, 16, 32, 0.7);
+  border: 1px solid rgba(110, 160, 255, 0.35);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 1rem 2.5rem rgba(0, 8, 25, 0.45);
+}
+
+.instructions h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+}
+
+.instructions p {
+  margin: 0;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  color: #d9e7ff;
+}
