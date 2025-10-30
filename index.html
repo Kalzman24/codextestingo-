@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Tags -->
+    <title>WhiteSpace Inc | Enterprise Agentic AI & Execution Platform</title>
+    <meta name="description" content="WhiteSpace Inc pioneers Enterprise Agentic Execution — blending strategy, AI, and automation to build intelligent, self-optimizing enterprises." />
+    <meta name="keywords" content="Agentic AI, Enterprise AI, AI Execution Platform, AI Consultancy, Autonomous Agents, Business Automation, AI Transformation, Living Enterprise, WhiteSpace Inc, Enterprise Agentic Execution, AI ROI, Agentic Systems, Venture Studio, AI Ventures" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="WhiteSpace Inc | Enterprise Agentic AI & Execution Platform" />
+    <meta property="og:description" content="WhiteSpace Inc pioneers Enterprise Agentic Execution — blending strategy, AI, and automation to build intelligent, self-optimizing enterprises." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1280&h=720&auto=format&fit=crop" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="WhiteSpace Inc | Enterprise Agentic AI & Execution Platform" />
+    <meta property="twitter:description" content="WhiteSpace Inc pioneers Enterprise Agentic Execution — blending strategy, AI, and automation to build intelligent, self-optimizing enterprises." />
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1280&h=720&auto=format&fit=crop" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "WhiteSpace Inc",
+      "description": "WhiteSpace Inc is an AI-driven consultancy and venture studio helping organizations move from strategy to autonomous execution. As both an execution partner and a venture builder, WhiteSpace incubates and scales successful AI-driven ventures that demonstrate real-world value creation. Through Enterprise Agentic Execution, we embed intelligent, goal-seeking agents into core workflows — enabling companies to operate faster, safer, and at lower unit cost. Our approach fuses strategic consultancy with agentic AI systems, creating living enterprises that continuously learn and adapt. With expertise spanning finance, HR, operations, marketing, and logistics, WhiteSpace delivers measurable ROI — reducing cycle times by up to 60% and operational costs by 25%."
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "three": "https://aistudiocdn.com/three@^0.180.0",
+    "three/": "https://aistudiocdn.com/three@^0.180.0/",
+    "@react-three/drei": "https://aistudiocdn.com/@react-three/drei@^10.7.6",
+    "@react-three/fiber": "https://aistudiocdn.com/@react-three/fiber@^9.3.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^11.3.11",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.417.0",
+    "@radix-ui/react-slot": "https://aistudiocdn.com/@radix-ui/react-slot@^1.1.0",
+    "class-variance-authority": "https://aistudiocdn.com/class-variance-authority@^0.7.0",
+    "clsx": "https://aistudiocdn.com/clsx@^2.1.1",
+    "tailwind-merge": "https://aistudiocdn.com/tailwind-merge@^2.4.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.25.0",
+    "@vercel/node": "https://aistudiocdn.com/@vercel/node@^5.4.1"
+  }
+}
+</script>
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+  :root {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --warning: 48 96% 50%;
+    --warning-foreground: 48 96% 5%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --radius: 0.5rem;
+  }
+</style>
+<style>
+  .whatsapp-fab{
+    position: fixed;
+    right: 18px; bottom: 18px;
+    width: 56px; height: 56px;
+    display: grid; place-items: center;
+    background: #25D366; color: white;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.18);
+    text-decoration: none;
+    transition: transform .15s ease, box-shadow .15s ease;
+    z-index: 9999;
+  }
+  .whatsapp-fab:hover{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.22); }
+  .whatsapp-fab svg{ display:block; }
+  @media (prefers-reduced-motion: reduce) {
+    .whatsapp-fab {
+      transition: none;
+    }
+    .whatsapp-fab:hover {
+      transform: none;
+      box-shadow: 0 6px 18px rgba(0,0,0,.18);
+    }
+  }
+</style>
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function(){
+     emailjs.init({
+       publicKey: "xV_DmHEsf8XPYmIvS",
+     });
+  })();
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    <!-- WhatsApp Floating Button -->
+    <a
+      href="https://wa.me/351938800080?text=Hi%20Whitespace%20Inc%2C%20I%E2%80%99d%20like%20to%20talk."
+      class="whatsapp-fab"
+      target="_blank"
+      rel="noopener"
+      aria-label="Chat with us on WhatsApp"
+    >
+      <!-- Modern WhatsApp SVG icon -->
+      <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+        <path fill="white" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zM12.04 20.12c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31c-.82-1.31-1.26-2.83-1.26-4.38 0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42s2.41 3.63 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23zm4.52-6.13c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2s-1.36-1.66-1.5-1.94c-.14-.28-.01-.43.11-.55.11-.11.24-.28.37-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42s-.54-1.29-.74-1.77c-.2-.48-.4-.41-.54-.42-.14-.01-.3 0-.46 0s-.38.06-.58.3c-.2.24-.78.76-.78 1.85s.8 2.15.91 2.31c.11.16 1.57 2.4 3.78 3.32.54.23 1 .37 1.32.47.54.17 1.02.15 1.41.09.44-.06 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.11-.22-.18-.46-.3z"/>
+      </svg>
+    </a>
+  </body>
+</html>
