@@ -98,7 +98,7 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
         <div className="flex w-full max-w-sm md:w-full md:max-w-4xl items-center justify-between bg-[#0a0a0a]/50 border border-white/10 backdrop-blur-lg py-1 px-4 rounded-full shadow-lg">
           
           <button onClick={onGoHome} className="text-white font-bold text-sm whitespace-nowrap hover:text-white/80 transition-colors">
-              White Space
+              WhiteSpaceInc
           </button>
           
           <div className="hidden md:flex items-center gap-1">

@@ -62,7 +62,7 @@ const AccordionItem: React.FC<{item: {title: string, description: string}, isAct
 
 // --- Main Section Component ---
 export const HookSection: React.FC<{ id: string, onStartDiagnosis: () => void }> = ({ id, onStartDiagnosis }) => {
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleItemHover = (index: number) => {
     setActiveIndex(index);

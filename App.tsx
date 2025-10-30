@@ -8,11 +8,15 @@ import { NextChapterPage } from './components/ContactSection';
 
 const App: React.FC = () => {
   const [page, setPage] = useState<'gateway' | 'consultancy' | 'venture' | 'nextchapter'>('gateway');
+  const [previousPage, setPreviousPage] = useState<'gateway' | 'consultancy' | 'venture'>('gateway');
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
 
   const showConsultancy = () => setPage('consultancy');
   const showVentureStudio = () => setPage('venture');
   const showNextChapter = () => {
+    if (page !== 'nextchapter') {
+      setPreviousPage(page);
+    }
     setPage('nextchapter');
     window.scrollTo(0, 0);
   };
@@ -20,6 +24,10 @@ const App: React.FC = () => {
     setPage('gateway');
     setSelectedArticleId(null);
   }
+
+  const handleBackFromNextChapter = () => {
+    setPage(previousPage);
+  };
 
   const handleSelectArticle = (articleId: string) => {
     setSelectedArticleId(articleId);
@@ -45,7 +53,7 @@ const App: React.FC = () => {
   }
 
   if (page === 'nextchapter') {
-    return <NextChapterPage onGoHome={showGateway} />;
+    return <NextChapterPage onBack={handleBackFromNextChapter} />;
   }
 
   if (page === 'consultancy') {

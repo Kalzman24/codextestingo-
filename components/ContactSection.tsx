@@ -10,7 +10,7 @@ const socialLinks = [
 	},
 ];
 
-export const NextChapterPage: React.FC<{ onGoHome: () => void; }> = ({ onGoHome }) => {
+export const NextChapterPage: React.FC<{ onBack: () => void; }> = ({ onBack }) => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
@@ -119,9 +119,9 @@ export const NextChapterPage: React.FC<{ onGoHome: () => void; }> = ({ onGoHome 
             </form>
             
             <div className="mt-12 text-center">
-                <Button onClick={onGoHome} variant="ghost">
+                <Button onClick={onBack} variant="ghost">
                     <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to Home
+                    Go Back
                 </Button>
             </div>
         </div>
