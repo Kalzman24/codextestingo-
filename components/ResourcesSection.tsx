@@ -1,37 +1,24 @@
 import React from 'react';
-import { ArticleCard } from './ArticleCard';
-import { articles } from '../data/articles';
+import { StaticResourcesSection } from './StaticResourcesSection';
 
-interface ResourcesSectionProps {
-  id: string;
-  onSelectArticle: (articleId: string) => void;
-}
+// Note: The original ResourcesSection is no longer used and can be considered deprecated.
+// This file now exports the ResourcesPage which uses the new stable static section.
 
-export const ResourcesSection: React.FC<ResourcesSectionProps> = ({ id, onSelectArticle }) => {
-  return (
-    <section id={id} className="bg-white text-black min-h-screen flex flex-col justify-center scroll-mt-20 py-24 sm:py-32">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight tracking-tighter">
-            Resources
-          </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-            Insights and perspectives on AI strategy, execution, and the future of business.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {articles.map((article) => (
-            <ArticleCard
-              key={article.id}
-              category={article.category}
-              title={article.title}
-              imageUrl={article.imageUrl}
-              gradient={article.gradient}
-              onClick={() => onSelectArticle(article.id)}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+export const ResourcesPage: React.FC = () => {
+    return (
+      <main className="bg-white">
+        {/* Simple header for the standalone resources page */}
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+          <div className="max-w-7xl mx-auto flex justify-between items-center p-4 px-6 lg:px-8">
+            <a href="/" className="font-bold text-lg text-black">WhiteSpaceInc</a>
+            <nav className="hidden sm:flex items-center gap-4 text-sm font-medium">
+              <a href="/consultancy" className="text-gray-600 hover:text-black transition-colors">Consultancy</a>
+              <a href="/venture-studio" className="text-gray-600 hover:text-black transition-colors">Venture Studio</a>
+              <a href="/contact" className="text-gray-600 hover:text-black transition-colors">Contact</a>
+            </nav>
+          </div>
+        </header>
+        <StaticResourcesSection id="resources" />
+      </main>
+    );
+  };

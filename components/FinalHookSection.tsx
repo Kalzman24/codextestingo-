@@ -7,7 +7,11 @@ import { DiagnosisTool } from "./DiagnosisTool";
 
 const taglineTexts = ["Strategy.", "Execution.", "Outcomes."];
 
-export const FinalHookSection: React.FC<{ id: string }> = React.memo(({ id }) => {
+type FinalHookSectionProps = {
+  id: string;
+};
+
+export const FinalHookSection: React.FC<FinalHookSectionProps> = React.memo(({ id }) => {
   const [showDiagnosis, setShowDiagnosis] = useState(false);
 
   const handleStart = () => setShowDiagnosis(true);

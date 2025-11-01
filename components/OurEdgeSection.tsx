@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import {
     IconTerminal2,
@@ -59,7 +56,14 @@ const features = [
     },
 ];
 
-const Feature: React.FC<{ title: string; description: string; icon: React.ReactNode; index: number; }> = ({ title, description, icon, index }) => {
+type FeatureProps = {
+    title: string;
+    description: string;
+    icon: React.ReactNode;
+    index: number;
+};
+
+const Feature = ({ title, description, icon, index }: FeatureProps) => {
   return (
     <div
       className={cn(
@@ -94,7 +98,11 @@ const Feature: React.FC<{ title: string; description: string; icon: React.ReactN
   );
 };
 
-export const OurEdgeSection: React.FC<{ id: string }> = ({ id }) => {
+type OurEdgeSectionProps = {
+    id: string;
+};
+
+export const OurEdgeSection = ({ id }: OurEdgeSectionProps) => {
     const prefersReducedMotion = usePrefersReducedMotion();
 
     return (

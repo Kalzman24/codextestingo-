@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
 import Button from './Button';
-import { ArrowRight, ArrowLeft, LinkedinIcon, WhatsAppIcon, MailIcon } from './Icons';
+import { ArrowRight, ArrowLeft } from './Icons';
 
-const socialLinks = [
-	{
-		icon: LinkedinIcon,
-		href: 'https://www.linkedin.com/in/khalilmansour/',
-		label: 'LinkedIn',
-	},
-];
-
-export const NextChapterPage: React.FC<{ onBack: () => void; }> = ({ onBack }) => {
+export const NextChapterPage: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
@@ -50,6 +42,10 @@ export const NextChapterPage: React.FC<{ onBack: () => void; }> = ({ onBack }) =
         default: return 'Send Message';
     }
   };
+
+  const handleBack = () => {
+    window.history.back();
+  }
 
   return (
     <main className="bg-[#0a0a0a] text-white min-h-screen flex flex-col items-center justify-center p-6">
@@ -119,7 +115,7 @@ export const NextChapterPage: React.FC<{ onBack: () => void; }> = ({ onBack }) =
             </form>
             
             <div className="mt-12 text-center">
-                <Button onClick={onBack} variant="ghost">
+                <Button onClick={handleBack} variant="ghost">
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Go Back
                 </Button>

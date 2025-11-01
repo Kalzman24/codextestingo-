@@ -3,7 +3,16 @@ import { motion } from 'framer-motion';
 import { cn } from '../lib/utils';
 import { PlayIcon } from './Icons';
 
-// Re-using the ElegantShape component logic from VentureStudioPage
+type ElegantShapeProps = {
+    className?: string;
+    delay?: number;
+    width?: number;
+    height?: number;
+    rotate?: number;
+    gradient?: string;
+};
+
+// Re-using the ElegantShape component logic
 function ElegantShape({
     className,
     delay = 0,
@@ -11,14 +20,7 @@ function ElegantShape({
     height = 100,
     rotate = 0,
     gradient = "from-white/[0.08]",
-}: {
-    className?: string;
-    delay?: number;
-    width?: number;
-    height?: number;
-    rotate?: number;
-    gradient?: string;
-}) {
+}: ElegantShapeProps) {
     return (
         <motion.div
             initial={{
@@ -71,8 +73,11 @@ function ElegantShape({
     );
 }
 
+type VideoSectionProps = {
+    id: string;
+};
 
-export const VideoSection: React.FC<{ id: string }> = ({ id }) => {
+export const VideoSection: React.FC<VideoSectionProps> = ({ id }) => {
     const videoId = "cxPieVM6uhU";
     const [isPlaying, setIsPlaying] = useState(false);
     

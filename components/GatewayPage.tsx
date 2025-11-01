@@ -3,6 +3,15 @@ import { motion } from 'framer-motion';
 import Button from './Button';
 import { cn } from '../lib/utils';
 
+type ElegantShapeProps = {
+    className?: string;
+    delay?: number;
+    width?: number;
+    height?: number;
+    rotate?: number;
+    gradient?: string;
+};
+
 // Helper component for the animated shapes, integrated from the new hero design.
 function ElegantShape({
     className,
@@ -11,14 +20,7 @@ function ElegantShape({
     height = 100,
     rotate = 0,
     gradient = "from-white/[0.08]",
-}: {
-    className?: string;
-    delay?: number;
-    width?: number;
-    height?: number;
-    rotate?: number;
-    gradient?: string;
-}) {
+}: ElegantShapeProps) {
     return (
         <motion.div
             initial={{
@@ -70,18 +72,14 @@ function ElegantShape({
     );
 }
 
-
-interface GatewayPageProps {
-  onSelectConsultancy: () => void;
-  onSelectVenture: () => void;
-}
-
-const GatewayCard: React.FC<{
+type GatewayCardProps = {
   title: string;
   description: string;
   buttonText: string;
-  onClick: () => void;
-}> = ({ title, description, buttonText, onClick }) => {
+  href: string;
+};
+
+const GatewayCard: React.FC<GatewayCardProps> = ({ title, description, buttonText, href }) => {
   return (
     <motion.div 
       className="bg-white/[0.03] border border-white/[0.08] rounded-3xl p-8 md:p-12 flex flex-col items-center text-center w-full backdrop-blur-sm"
@@ -93,7 +91,7 @@ const GatewayCard: React.FC<{
         <p className="mt-4 text-base md:text-lg text-white/70 max-w-sm">{description}</p>
       </div>
       <div className="mt-auto pt-8">
-        <Button onClick={onClick} variant="outline" size="lg" className="font-semibold px-8 py-5 text-base bg-white/5 hover:bg-white/10">
+        <Button href={href} variant="outline" size="lg" className="font-semibold px-8 py-5 text-base bg-white/5 hover:bg-white/10">
           {buttonText}
         </Button>
       </div>
@@ -101,7 +99,7 @@ const GatewayCard: React.FC<{
   );
 };
 
-export const GatewayPage: React.FC<GatewayPageProps> = ({ onSelectConsultancy, onSelectVenture }) => {
+export const GatewayPage: React.FC = () => {
   return (
     <main className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303] text-white p-4">
       {/* Background elements from the new hero design */}
@@ -171,13 +169,13 @@ export const GatewayPage: React.FC<GatewayPageProps> = ({ onSelectConsultancy, o
             title="AI Strategy & Execution"
             description="Transform your operations and deliver measurable outcomes with our proven consultancy services."
             buttonText="Explore Our Services"
-            onClick={onSelectConsultancy}
+            href="/consultancy"
           />
           <GatewayCard
             title="WS Venture Studio"
             description="We co-build the future of AI by partnering with exceptional, early-stage founders."
             buttonText="Join The Studio"
-            onClick={onSelectVenture}
+            href="/venture-studio"
           />
         </motion.div>
       </div>

@@ -19,7 +19,11 @@ const steps = [
   }
 ];
 
-export const ApproachSection: React.FC<{ id: string }> = ({ id }) => {
+type ApproachSectionProps = {
+  id: string;
+};
+
+export const ApproachSection: React.FC<ApproachSectionProps> = ({ id }) => {
   return (
     <section id={id} className="bg-white text-black min-h-screen flex flex-col justify-center scroll-mt-20 snap-start py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

@@ -1,13 +1,13 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 
-// Define interfaces for props
-interface SocialLink {
+// Define types for props
+type SocialLink = {
   icon: React.ElementType;
   href: string;
 }
 
-interface TeamMember {
+type TeamMember = {
   name: string;
   designation: string;
   imageSrc: string;

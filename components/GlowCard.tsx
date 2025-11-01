@@ -1,6 +1,6 @@
 import React, { useRef, type ReactNode } from 'react';
 
-interface GlowCardProps {
+type GlowCardProps = {
   children: ReactNode;
   className?: string;
   glowColor?: 'blue' | 'purple' | 'green' | 'red' | 'orange' | 'black';
@@ -8,7 +8,7 @@ interface GlowCardProps {
   width?: string | number;
   height?: string | number;
   customSize?: boolean;
-}
+};
 
 const glowColorMap = {
   blue: { base: 220, spread: 200, saturation: 100, lightness: 50 },

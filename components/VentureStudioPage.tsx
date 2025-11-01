@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Button from './Button';
-import { MailIcon, UsersIcon, IconRoute, PlayIcon } from './Icons';
+import { MailIcon, UsersIcon, IconRoute, PlayIcon, HomeIcon } from './Icons';
 import { Timeline } from './Timeline';
-import { Scene } from './Scene';
 import { cn } from '../lib/utils';
 import { NavBar, type NavItem } from './NavBar';
 import { VideoSection } from './VideoSection';
@@ -92,6 +91,15 @@ const timelineData = journeySteps.map(step => ({
     )
 }));
 
+type ElegantShapeProps = {
+    className?: string;
+    delay?: number;
+    width?: number;
+    height?: number;
+    rotate?: number;
+    gradient?: string;
+};
+
 function ElegantShape({
     className,
     delay = 0,
@@ -99,14 +107,7 @@ function ElegantShape({
     height = 100,
     rotate = 0,
     gradient = "from-white/[0.08]",
-}: {
-    className?: string;
-    delay?: number;
-    width?: number;
-    height?: number;
-    rotate?: number;
-    gradient?: string;
-}) {
+}: ElegantShapeProps) {
     return (
         <motion.div
             initial={{
@@ -158,33 +159,24 @@ function ElegantShape({
     );
 }
 
-interface VentureStudioPageProps {
-    onGoHome: () => void;
-    onGoToNextChapter: () => void;
-}
+const ventureNavItems: NavItem[] = [
+    { name: "Consultancy", url: "/", icon: HomeIcon },
+    { name: "Journey", url: "/venture-studio#journey", icon: IconRoute },
+    { name: "Vision", url: "/venture-studio#vision", icon: PlayIcon },
+    { name: "Partnership", url: "/venture-studio#partnership", icon: UsersIcon },
+    { name: "Apply", url: "/contact", icon: MailIcon },
+];
 
-export const VentureStudioPage: React.FC<VentureStudioPageProps> = ({ onGoHome, onGoToNextChapter }) => {
-    
-    const ventureNavItems: NavItem[] = [
-      { name: "Journey", url: "#journey", icon: IconRoute },
-      { name: "Vision", url: "#vision", icon: PlayIcon },
-      { name: "Partnership", url: "#partnership", icon: UsersIcon },
-      { name: "Apply", onClick: onGoToNextChapter, icon: MailIcon },
-    ];
-
-    const handleApplyClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        onGoToNextChapter();
-    };
+export const VentureStudioPage: React.FC = () => {
     
     return (
         <main className="bg-[#0a0a0a] text-white">
-            <NavBar navItems={ventureNavItems} showDiagnosisButton={false} onGoHome={onGoHome} />
+            <NavBar navItems={ventureNavItems} showDiagnosisButton={false} />
 
             {/* Hero Section */}
             <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
                 <div className="absolute inset-0 z-0 bg-black">
-                    <Scene />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(128,128,200,0.1)_0%,_rgba(128,128,200,0)_60%)]"></div>
                 </div>
                 <div className="relative z-10">
                     <motion.div
@@ -199,7 +191,7 @@ export const VentureStudioPage: React.FC<VentureStudioPageProps> = ({ onGoHome, 
                             We don't just invest, we build alongside you. Our Venture Studio is a selective platform for exceptional founders, combining your vision with our strategic, technical, and creative expertise to build market-defining companies.
                         </p>
                         <div className="mt-10">
-                            <Button onClick={handleApplyClick} size="lg" variant="default" className="font-semibold text-black">
+                            <Button href="/contact" size="lg" variant="default" className="font-semibold text-black">
                                Apply to The Studio
                             </Button>
                         </div>
@@ -263,7 +255,7 @@ export const VentureStudioPage: React.FC<VentureStudioPageProps> = ({ onGoHome, 
                     <h3 className="text-3xl font-bold">Ready to build with us?</h3>
                     <p className="mt-4 text-lg text-gray-600">Let’s turn your idea — or your momentum — into something unstoppable.</p>
                     <div className="mt-8">
-                        <Button onClick={handleApplyClick} size="lg" variant="dark" theme="light" className="font-semibold">
+                        <Button href="/contact" size="lg" variant="dark" theme="light" className="font-semibold">
                             Join the Journey
                         </Button>
                     </div>

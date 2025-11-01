@@ -13,7 +13,11 @@ const cardItems = [
     }
 ];
 
-export const BusinessModelSection: React.FC<{ id: string }> = ({ id }) => {
+type BusinessModelSectionProps = {
+    id: string;
+};
+
+export const BusinessModelSection = ({ id }: BusinessModelSectionProps) => {
   return (
     <section id={id} className="bg-[#0a0a0a] text-white min-h-screen flex flex-col justify-center scroll-mt-20 py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

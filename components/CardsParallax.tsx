@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 // Types
-export interface iCardItem {
+export type iCardItem = {
 	title: string;
 	description: string;
 	tag: string;
@@ -11,10 +11,10 @@ export interface iCardItem {
 	textColor: string;
 }
 
-interface iCardProps extends Omit<iCardItem, "src" | "link" | "tag"> {
+type iCardProps = Omit<iCardItem, "src" | "link" | "tag"> & {
 	i: number;
 	src: string;
-}
+};
 
 // Components
 const Card: FC<iCardProps> = ({
@@ -78,9 +78,9 @@ const Card: FC<iCardProps> = ({
 	);
 };
 
-interface iCardSlideProps {
+type iCardSlideProps = {
 	items: iCardItem[];
-}
+};
 
 const CardsParallax: FC<iCardSlideProps> = ({items}) => {
 	return (

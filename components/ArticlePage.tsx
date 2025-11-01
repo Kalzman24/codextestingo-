@@ -3,10 +3,9 @@ import type { Article } from '../data/articles';
 import { ArrowLeft } from './Icons';
 import Button from './Button';
 
-interface ArticlePageProps {
+type ArticlePageProps = {
   article: Article;
-  onBack: () => void;
-}
+};
 
 const renderContent = (content: string) => {
   const paragraphs = content.split('\n\n').map((p, i) => {
@@ -31,7 +30,7 @@ const renderContent = (content: string) => {
   return <>{paragraphs}</>;
 };
 
-export const ArticlePage: React.FC<ArticlePageProps> = ({ article, onBack }) => {
+export const ArticlePage: React.FC<ArticlePageProps> = ({ article }) => {
   return (
     <div className="bg-white min-h-screen">
       <header className="relative h-[24rem] md:h-96">
@@ -42,13 +41,13 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ article, onBack }) => 
           <h1 className="text-4xl md:text-5xl font-extrabold mt-4 max-w-4xl">{article.title}</h1>
         </div>
         <div className="absolute top-6 left-6 z-10">
-            <button 
-                onClick={onBack} 
+            <a 
+                href="/resources"
                 className="h-12 w-12 rounded-full bg-black/30 text-white flex items-center justify-center hover:bg-black/50 transition-colors backdrop-blur-sm"
-                aria-label="Go back"
+                aria-label="Go back to resources"
             >
                 <ArrowLeft className="w-6 h-6" />
-            </button>
+            </a>
         </div>
       </header>
       <main className="max-w-3xl mx-auto py-12 px-6">
@@ -56,7 +55,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ article, onBack }) => 
           {renderContent(article.content)}
         </article>
         <div className="mt-12 border-t pt-8 text-center">
-          <Button onClick={onBack} variant="dark" theme="light" size="lg">
+          <Button href="/resources" variant="dark" theme="light" size="lg">
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Resources
           </Button>
         </div>

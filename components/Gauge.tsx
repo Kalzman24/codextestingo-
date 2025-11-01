@@ -7,7 +7,11 @@ const resultLevels: { [key: number]: { color: string } } = {
   80: { color: "rgb(34 197 94)" },  // green-500
 };
 
-export const Gauge: React.FC<{ value: number }> = ({ value }) => {
+type GaugeProps = {
+    value: number;
+};
+
+export const Gauge: React.FC<GaugeProps> = ({ value }) => {
     const size = 180;
     const strokeWidth = 14;
     const radius = (size - strokeWidth) / 2;

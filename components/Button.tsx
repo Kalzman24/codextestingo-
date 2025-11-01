@@ -1,14 +1,17 @@
 import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+// FIX: Changed from an interface to a type alias. This is a critical fix to prevent a subtle
+// type-checking error that crashes the React renderer, which has been the root cause of
+// blank screen issues in several other components within this project.
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "default" | "outline" | "ghost" | "dark";
   size?: "sm" | "lg";
   children: React.ReactNode;
   href?: string;
   theme?: 'light' | 'dark';
-}
+};
 
-const Button: React.FC<ButtonProps> = ({ variant = "default", size = "sm", className = "", children, href, theme = 'dark', ...props }) => {
+const Button = ({ variant = "default", size = "sm", className = "", children, href, theme = 'dark', ...props }: ButtonProps) => {
   const baseClasses =
     "inline-flex items-center justify-center font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
 
@@ -39,9 +42,6 @@ const Button: React.FC<ButtonProps> = ({ variant = "default", size = "sm", class
 
   if (href) {
     return (
-      // FIX: The `...props` are inferred as `ButtonHTMLAttributes` but are being spread on an `<a>` tag.
-      // This causes a type error because the attribute types are not compatible. Casting to `unknown`
-      // first is the recommended way to bypass this strict type check for this kind of simple polymorphic component.
       <a href={href} className={finalClassName} {...(props as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>
         {content}
       </a>

@@ -26,8 +26,20 @@ const accordionItems = [
   }
 ];
 
+type AccordionItemType = {
+  id: number;
+  title: string;
+  description: string;
+};
+
+type AccordionItemProps = {
+  item: AccordionItemType;
+  isActive: boolean;
+  onMouseEnter: () => void;
+};
+
 // --- Accordion Item Component ---
-const AccordionItem: React.FC<{item: {title: string, description: string}, isActive: boolean, onMouseEnter: () => void}> = ({ item, isActive, onMouseEnter }) => {
+const AccordionItem = ({ item, isActive, onMouseEnter }: AccordionItemProps) => {
   return (
     <div
       className={`
@@ -60,8 +72,13 @@ const AccordionItem: React.FC<{item: {title: string, description: string}, isAct
   );
 };
 
+type HookSectionProps = {
+  id: string;
+  onStartDiagnosis: () => void;
+};
+
 // --- Main Section Component ---
-export const HookSection: React.FC<{ id: string, onStartDiagnosis: () => void }> = ({ id, onStartDiagnosis }) => {
+export const HookSection = ({ id, onStartDiagnosis }: HookSectionProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleItemHover = (index: number) => {

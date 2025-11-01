@@ -16,7 +16,12 @@ const usePrefersReducedMotion = () => {
     return prefersReducedMotion;
 };
 
-export const DiagnosisModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+type DiagnosisModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+};
+
+export const DiagnosisModal = ({ isOpen, onClose }: DiagnosisModalProps) => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   return (

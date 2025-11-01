@@ -17,8 +17,11 @@ const usePrefersReducedMotion = () => {
     return prefersReducedMotion;
 };
 
+type FloatingPathsProps = {
+    position: number;
+};
 
-function FloatingPaths({ position }: { position: number }) {
+function FloatingPaths({ position }: FloatingPathsProps) {
     const prefersReducedMotion = usePrefersReducedMotion();
     const paths = Array.from({ length: 36 }, (_, i) => ({
         id: i,
@@ -89,7 +92,12 @@ function FloatingPaths({ position }: { position: number }) {
     );
 }
 
-const EtherealBeamsHero: React.FC<{ id: string; onStartDiagnosis: () => void; }> = ({ id, onStartDiagnosis }) => {
+type EtherealBeamsHeroProps = {
+    id: string;
+    onStartDiagnosis: () => void;
+};
+
+const EtherealBeamsHero: React.FC<EtherealBeamsHeroProps> = ({ id, onStartDiagnosis }) => {
     const title = "Harness AI now or fade.";
     const subtitle = "Rewire how your business works. Strategy that executes itself with AI.";
     const words = title.split(" ");

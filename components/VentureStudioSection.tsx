@@ -20,8 +20,19 @@ const accordionItems = [
   },
 ];
 
+type AccordionItemData = {
+    title: string;
+    description: string;
+};
+
+type AccordionItemProps = {
+    item: AccordionItemData;
+    isActive: boolean;
+    onMouseEnter: () => void;
+};
+
 // --- Accordion Item Component ---
-const AccordionItem: React.FC<{item: {title: string, description: string}, isActive: boolean, onMouseEnter: () => void}> = ({ item, isActive, onMouseEnter }) => {
+const AccordionItem: React.FC<AccordionItemProps> = ({ item, isActive, onMouseEnter }) => {
   return (
     <div
       className={`
@@ -54,9 +65,12 @@ const AccordionItem: React.FC<{item: {title: string, description: string}, isAct
   );
 };
 
+type VentureStudioSectionProps = {
+    id: string;
+};
 
 // --- Main Section Component ---
-export const VentureStudioSection: React.FC<{ id: string }> = ({ id }) => {
+export const VentureStudioSection: React.FC<VentureStudioSectionProps> = ({ id }) => {
   const [activeIndex, setActiveIndex] = useState(1);
 
   const handleItemHover = (index: number) => {
@@ -78,7 +92,7 @@ export const VentureStudioSection: React.FC<{ id: string }> = ({ id }) => {
                 
                 {/* Left Side: Text Content */}
                 <div className="w-full md:w-1/2 text-center md:text-left">
-                    <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight">
+                    <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight tracking-tighter">
                         WS Venture Studio
                     </h2>
                     <p className="mt-6 text-lg text-white/80 max-w-xl mx-auto md:mx-0">

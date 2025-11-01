@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Button from './Button';
@@ -16,7 +15,7 @@ const diagnosisQuestions = [
     { question: "What is your timeline for AI implementation?", options: ["No timeline", "1-2 years", "6-12 months", "Immediate"] }
 ];
 
-interface AnalysisResult {
+type AnalysisResult = {
     headline: string;
     analysis: string;
     readinessScore: number;
@@ -34,7 +33,13 @@ const itemVariants: Variants = {
   visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 100 } },
 };
 
-const IntroScreen: React.FC<{onStart: (context: { industry: string; goal: string }) => void, onBack: () => void, theme: 'light' | 'dark'}> = ({ onStart, onBack, theme }) => {
+type IntroScreenProps = {
+    onStart: (context: { industry: string; goal: string }) => void;
+    onBack: () => void;
+    theme: 'light' | 'dark';
+};
+
+const IntroScreen: React.FC<IntroScreenProps> = ({ onStart, onBack, theme }) => {
     const [industry, setIndustry] = useState('');
     const [goal, setGoal] = useState('');
 
@@ -93,20 +98,76 @@ const IntroScreen: React.FC<{onStart: (context: { industry: string; goal: string
     );
 };
 
-const LoadingScreen: React.FC = () => (
-    <motion.div
-        key="loading"
-        variants={containerVariants} initial="hidden" animate="visible" exit="exit"
-        className="text-center flex flex-col items-center justify-center min-h-[400px]">
-        <motion.div variants={itemVariants}>
-            <RefreshCwIcon className="w-16 h-16 text-white/80 animate-spin"/>
-        </motion.div>
-        <motion.h2 variants={itemVariants} className="text-3xl font-bold mt-8">Analyzing your results...</motion.h2>
-        <motion.p variants={itemVariants} className="text-lg text-white/70 mt-2">Our AI is crafting your personalized readiness summary.</motion.p>
-    </motion.div>
-);
+const loadingSteps = [
+    "Evaluating AI adoption...",
+    "Assessing data maturity...",
+    "Analyzing process automation...",
+    "Gauging technical readiness...",
+    "Calculating readiness score...",
+    "Generating personalized insights...",
+];
 
-const ResultsScreen: React.FC<{result: AnalysisResult, onRetake: () => void, onFinish: () => void, onContact: () => void, theme: 'light' | 'dark'}> = ({ result, onRetake, onFinish, onContact, theme }) => {
+const LoadingScreen: React.FC = () => {
+    const [currentStepIndex, setCurrentStepIndex] = useState(0);
+    const durationPerStep = 1500; // 1.5 seconds per step
+    const totalDuration = (loadingSteps.length - 1) * durationPerStep;
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentStepIndex((prevIndex) => (prevIndex + 1) % loadingSteps.length);
+        }, durationPerStep); 
+
+        return () => clearInterval(interval);
+    }, []);
+    
+    return (
+        <motion.div
+            key="loading"
+            variants={containerVariants} initial="hidden" animate="visible" exit="exit"
+            className="text-center flex flex-col items-center justify-center min-h-[400px]">
+            <motion.div variants={itemVariants}>
+                <RefreshCwIcon className="w-16 h-16 text-white/80 animate-spin"/>
+            </motion.div>
+            <motion.h2 variants={itemVariants} className="text-3xl font-bold mt-8">Analyzing your results...</motion.h2>
+            
+            <motion.div variants={itemVariants} className="w-full max-w-xs mx-auto mt-8">
+                <div className="w-full bg-white/10 rounded-full h-2">
+                    <motion.div
+                        className="bg-white h-2 rounded-full"
+                        initial={{ width: "0%" }}
+                        animate={{ width: "95%" }}
+                        transition={{ duration: totalDuration / 1000, ease: "linear" }}
+                    />
+                </div>
+            </motion.div>
+
+            <div className="mt-4 text-lg text-white/70 h-8 relative w-full">
+                <AnimatePresence mode="wait">
+                    <motion.p
+                        key={currentStepIndex}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.4, ease: 'easeInOut' }}
+                        className="absolute inset-0"
+                    >
+                        {loadingSteps[currentStepIndex]}
+                    </motion.p>
+                </AnimatePresence>
+            </div>
+        </motion.div>
+    );
+};
+
+type ResultsScreenProps = {
+    result: AnalysisResult;
+    onRetake: () => void;
+    onFinish: () => void;
+    onContact: () => void;
+    theme: 'light' | 'dark';
+};
+
+const ResultsScreen: React.FC<ResultsScreenProps> = ({ result, onRetake, onFinish, onContact, theme }) => {
     return (
         <motion.div variants={containerVariants} initial="hidden" animate="visible" exit="exit" className="text-center flex flex-col items-center">
             <motion.div variants={itemVariants}><Gauge value={result.readinessScore} /></motion.div>
@@ -140,7 +201,13 @@ const ResultsScreen: React.FC<{result: AnalysisResult, onRetake: () => void, onF
     );
 }
 
-const ContactFormScreen: React.FC<{ onSubmit: (email: string) => void, onBack: () => void, theme: 'light' | 'dark'}> = ({ onSubmit, onBack, theme }) => {
+type ContactFormScreenProps = {
+    onSubmit: (email: string) => void;
+    onBack: () => void;
+    theme: 'light' | 'dark';
+};
+
+const ContactFormScreen: React.FC<ContactFormScreenProps> = ({ onSubmit, onBack, theme }) => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -187,7 +254,12 @@ const ContactFormScreen: React.FC<{ onSubmit: (email: string) => void, onBack: (
   );
 };
 
-const SuccessScreen: React.FC<{onFinish: () => void, theme: 'light' | 'dark'}> = ({ onFinish, theme }) => {
+type SuccessScreenProps = {
+    onFinish: () => void;
+    theme: 'light' | 'dark';
+};
+
+const SuccessScreen: React.FC<SuccessScreenProps> = ({ onFinish, theme }) => {
   return (
     <motion.div variants={containerVariants} initial="hidden" animate="visible" exit="exit" className="text-center flex flex-col items-center">
       <motion.div variants={itemVariants}>
@@ -206,7 +278,12 @@ const SuccessScreen: React.FC<{onFinish: () => void, theme: 'light' | 'dark'}> =
   );
 };
 
-export const DiagnosisTool: React.FC<{ onFinish: () => void; theme?: 'light' | 'dark' }> = ({ onFinish, theme = 'dark' }) => {
+type DiagnosisToolProps = {
+    onFinish: () => void;
+    theme?: 'light' | 'dark';
+};
+
+export const DiagnosisTool: React.FC<DiagnosisToolProps> = ({ onFinish, theme = 'dark' }) => {
     const [step, setStep] = useState(0); // 0: intro, 1-8: Qs, 9: loading, 10: results, 11: contact, 12: success
     const [answers, setAnswers] = useState<(string | null)[]>(Array(diagnosisQuestions.length).fill(null));
     const [context, setContext] = useState({ industry: '', goal: ''});

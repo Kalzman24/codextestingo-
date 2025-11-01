@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 // FIX: Added `type Variants` to the import to explicitly type framer-motion variants.
 import { motion, type Variants } from 'framer-motion';
@@ -47,7 +48,12 @@ const getVariants = (prefersReducedMotion: boolean): { containerVariants: Varian
     },
 });
 
-export const TimeAdvantageSection: React.FC<{ id: string; onStartDiagnosis: () => void; }> = React.memo(({ id, onStartDiagnosis }) => {
+type TimeAdvantageSectionProps = {
+  id: string;
+  onStartDiagnosis: () => void;
+};
+
+export const TimeAdvantageSection = React.memo(({ id, onStartDiagnosis }: TimeAdvantageSectionProps) => {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { containerVariants, itemVariants } = getVariants(prefersReducedMotion);
   
