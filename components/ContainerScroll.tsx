@@ -1,16 +1,15 @@
 "use client";
+// FIX: Corrected the import statement to properly import `useRef` and `useMemo`.
 import React, { useRef, useMemo } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
-
-type ContainerScrollProps = {
-  titleComponent: string | React.ReactNode;
-  children: React.ReactNode;
-};
 
 export const ContainerScroll = ({
   titleComponent,
   children,
-}: ContainerScrollProps) => {
+}: {
+  titleComponent: string | React.ReactNode;
+  children: React.ReactNode;
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -57,12 +56,12 @@ export const ContainerScroll = ({
   );
 };
 
-type HeaderProps = {
+// FIX: Changed Header to use React.FC to make its component type explicit,
+// which resolves a cascading type inference failure affecting the sibling Card component.
+export const Header: React.FC<{
   translate: MotionValue<number>;
   titleComponent: React.ReactNode;
-};
-
-export const Header: React.FC<HeaderProps> = ({
+}> = ({
   translate,
   titleComponent,
 }) => {
@@ -78,14 +77,15 @@ export const Header: React.FC<HeaderProps> = ({
   );
 };
 
-type CardProps = {
+// FIX: Changed Card to use React.FC to make its component type explicit, resolving a type inference issue.
+// FIX: Explicitly added the `children` prop to resolve type errors. In modern React,
+// `React.FC` no longer implicitly includes `children`.
+export const Card: React.FC<{
   rotate: MotionValue<number>;
   scale: MotionValue<number>;
   translate: MotionValue<number>;
   children: React.ReactNode;
-};
-
-export const Card: React.FC<CardProps> = ({
+}> = ({
   rotate,
   scale,
   children,

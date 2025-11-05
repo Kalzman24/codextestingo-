@@ -37,11 +37,7 @@ const caseStudies = [
   }
 ];
 
-type SuccessStoriesSectionProps = {
-    id: string;
-};
-
-export const SuccessStoriesSection = ({ id }: SuccessStoriesSectionProps) => {
+export const SuccessStoriesSection: React.FC<{ id: string }> = ({ id }) => {
   return (
     <section id={id} className="bg-white text-black min-h-screen flex flex-col justify-center scroll-mt-20 py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

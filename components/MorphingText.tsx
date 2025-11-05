@@ -87,10 +87,10 @@ const useMorphingText = (texts: string[]) => {
   return { text1Ref, text2Ref };
 };
 
-type MorphingTextProps = {
+interface MorphingTextProps {
   className?: string;
   texts: string[];
-};
+}
 
 const Texts: React.FC<Pick<MorphingTextProps, "texts">> = ({ texts }) => {
   const { text1Ref, text2Ref } = useMorphingText(texts);

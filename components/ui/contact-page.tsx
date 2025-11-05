@@ -144,7 +144,7 @@ function BorderSeparator() {
 	return <div className="h-px w-full border-b border-border" />;
 }
 
-type ContactBoxProps = React.ComponentProps<'div'> & {
+type ContactBox = React.ComponentProps<'div'> & {
 	icon: LucideIcon;
 	title: string;
 	description: string;
@@ -157,7 +157,7 @@ function Box({
 	children,
 	icon,
 	...props
-}: ContactBoxProps) {
+}: ContactBox) {
     const Icon = icon;
 	return (
 		<div

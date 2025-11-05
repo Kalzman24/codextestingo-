@@ -1,6 +1,6 @@
 import React from 'react';
 
-type GlowingEffectProps = {
+interface GlowingEffectProps {
   disabled?: boolean;
   className?: string;
 }

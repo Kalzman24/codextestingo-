@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 
 const cn = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(' ');
 
-type GooeyTextProps = {
+interface GooeyTextProps {
   texts: string[];
   morphTime?: number;
   cooldownTime?: number;

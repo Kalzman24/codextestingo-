@@ -1,5 +1,4 @@
 import React, { useEffect, useState, memo } from "react";
-import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { HomeIcon, MenuIcon, XIcon, ArrowRight } from "./Icons";
 
@@ -18,29 +17,42 @@ const usePrefersReducedMotion = () => {
 
 const cn = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(' ');
 
-// FIX: Changed JSX.Element to React.ReactElement to resolve "Cannot find namespace 'JSX'" error.
-type IconComponent = (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
+type IconComponent = React.FC<React.SVGProps<SVGSVGElement>>;
 
-export type NavItem = {
+export interface NavItem {
   name: string;
-  url: string;
+  url?: string;
+  onClick?: () => void;
   icon: IconComponent;
-};
+}
 
-type NavBarProps = {
+interface NavBarProps {
   navItems: NavItem[];
+  onGoHome: () => void;
   onStartDiagnosis?: () => void;
   showDiagnosisButton?: boolean;
-};
+}
 
-const _NavBar = ({ navItems, onStartDiagnosis, showDiagnosisButton = true }: NavBarProps) => {
-  const [activeTab, setActiveTab] = useState('');
+const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, showDiagnosisButton = true }) => {
+  const [activeTab, setActiveTab] = useState(navItems[0]?.name || '');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const location = useLocation();
 
-  const handleMobileNavClick = () => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
+    e.preventDefault();
     setIsMobileMenuOpen(false);
+    
+    if (item.onClick) {
+        item.onClick();
+        setActiveTab(item.name);
+    } else if (item.url) {
+        const targetId = item.url.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+        setActiveTab(item.name);
+    }
   };
   
   useEffect(() => {
@@ -56,69 +68,38 @@ const _NavBar = ({ navItems, onStartDiagnosis, showDiagnosisButton = true }: Nav
     };
 
     const handleScroll = () => {
-        const currentPathname = location.pathname;
-        
-        // Filter for hash links that belong to the current page
-        const hashLinks = navItems.filter(item => {
-            const [path] = item.url.split('#');
-            // Path for '/#home' is '', so handle root case
-            const itemPath = path === '' ? '/' : path;
-            return item.url.includes('#') && itemPath === currentPathname;
-        });
-
-        const sections = hashLinks.map(item => {
-            const id = item.url.split('#')[1];
-            return document.getElementById(id);
-        }).filter(el => el !== null) as HTMLElement[];
+        const sections = navItems
+            .filter(item => item.url)
+            .map(item => document.getElementById(item.url!.substring(1)));
 
         const scrollPosition = window.scrollY + 150;
 
-        let foundActiveSection = false;
-        // Iterate backwards to find the current section
         for (let i = sections.length - 1; i >= 0; i--) {
             const section = sections[i];
-            if (section.offsetTop <= scrollPosition) {
-                const correspondingNavItem = hashLinks.find(item => item.url.endsWith(`#${section.id}`));
+            if (section && section.offsetTop <= scrollPosition) {
+                const correspondingNavItem = navItems.find(item => item.url === `#${section.id}`);
                 if (correspondingNavItem) {
                     setActiveTab(correspondingNavItem.name);
-                    foundActiveSection = true;
                     break;
                 }
-            }
-        }
-
-        // If no hash section is active, check for a direct path match
-        if (!foundActiveSection) {
-            const currentPathItem = navItems.find(item => item.url === currentPathname && !item.url.includes('#'));
-             if (currentPathItem) {
-                setActiveTab(currentPathItem.name);
-            } else if (hashLinks.length === 0) {
-                 // If page has no hash links, clear active tab if no direct match
-                 setActiveTab('');
             }
         }
     };
 
     const throttledScrollHandler = throttle(handleScroll, 100);
     window.addEventListener('scroll', throttledScrollHandler, { passive: true });
-    
-    // Initial check on mount/location change
-    const timer = setTimeout(handleScroll, 150); // Timeout to allow content to render
-
-    return () => {
-        window.removeEventListener('scroll', throttledScrollHandler);
-        clearTimeout(timer);
-    }
-  }, [navItems, location]);
+    handleScroll();
+    return () => window.removeEventListener('scroll', throttledScrollHandler);
+  }, [navItems]);
 
   return (
     <>
       <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-0">
         <div className="flex w-full max-w-sm md:w-full md:max-w-4xl items-center justify-between bg-[#0a0a0a]/50 border border-white/10 backdrop-blur-lg py-1 px-4 rounded-full shadow-lg">
           
-          <a href="/" className="text-white font-bold text-sm whitespace-nowrap hover:text-white/80 transition-colors">
+          <button onClick={onGoHome} className="text-white font-bold text-sm whitespace-nowrap hover:text-white/80 transition-colors">
               WhiteSpaceInc
-          </a>
+          </button>
           
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
@@ -126,7 +107,8 @@ const _NavBar = ({ navItems, onStartDiagnosis, showDiagnosisButton = true }: Nav
               return (
                 <a
                   key={item.name}
-                  href={item.url}
+                  href={item.url || '#'}
+                  onClick={(e) => handleNavClick(e, item)}
                   className={cn(
                     "relative cursor-pointer text-sm font-semibold px-4 py-2 rounded-full transition-colors",
                     "text-white/80 hover:text-white",
@@ -208,10 +190,10 @@ const _NavBar = ({ navItems, onStartDiagnosis, showDiagnosisButton = true }: Nav
           >
             <div className="mt-24 px-6">
               <div className="flex flex-col items-center gap-2 bg-[#1a1a1a] p-4 rounded-2xl border border-white/10">
-                 <a href="/" onClick={handleMobileNavClick} className="relative w-full cursor-pointer text-md font-semibold px-4 py-3 rounded-xl transition-colors flex items-center gap-4 text-white/80 hover:text-white hover:bg-white/5">
+                 <button onClick={onGoHome} className="relative w-full cursor-pointer text-md font-semibold px-4 py-3 rounded-xl transition-colors flex items-center gap-4 text-white/80 hover:text-white hover:bg-white/5">
                     <HomeIcon className="w-5 h-5" />
                     Home
-                 </a>
+                 </button>
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = activeTab === item.name;
@@ -219,8 +201,8 @@ const _NavBar = ({ navItems, onStartDiagnosis, showDiagnosisButton = true }: Nav
                   return (
                     <a
                       key={item.name}
-                      href={item.url}
-                      onClick={handleMobileNavClick}
+                      href={item.url || '#'}
+                      onClick={(e) => handleNavClick(e, item)}
                       className={cn(
                         "relative w-full cursor-pointer text-md font-semibold px-4 py-3 rounded-xl transition-colors flex items-center gap-4",
                         "text-white/80 hover:text-white hover:bg-white/5",

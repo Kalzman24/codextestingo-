@@ -1,14 +1,12 @@
 import React from 'react';
 import { cn } from '../lib/utils'; 
 
-// FIX: Changed from an interface to a type alias to fix complex type inheritance issues with forwardRef.
-// Using a type alias with an intersection is more robust for components that accept DOM attributes.
-type ArticleCardProps = React.ComponentPropsWithoutRef<'div'> & {
+interface ArticleCardProps extends React.HTMLAttributes<HTMLDivElement> {
   category: string;
   title: string;
   imageUrl: string;
   gradient: string;
-};
+}
 
 export const ArticleCard = React.forwardRef<HTMLDivElement, ArticleCardProps>(
   ({ category, title, imageUrl, gradient, className, ...props }, ref) => {
