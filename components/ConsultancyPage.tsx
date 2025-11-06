@@ -8,7 +8,7 @@ import { HookSection } from './HookSection';
 import { BusinessModelSection } from './BusinessModelSection';
 import { SuccessStoriesSection } from './SuccessStoriesSection';
 import { TeamSection } from './ui/team-section';
-import { LinkedinIcon, ClockIcon, StarIcon, UsersIcon, MailIcon, IconRoute, IconChartBar, LayoutDashboardIcon, ArrowRight } from './Icons';
+import { LinkedinIcon, ClockIcon, StarIcon, UsersIcon, MailIcon, IconRoute, IconChartBar, LayoutDashboardIcon, ArrowRight, TentIcon } from './Icons';
 import { ResourcesSection } from './ResourcesSection';
 import Button from './Button';
 
@@ -16,6 +16,7 @@ interface ConsultancyPageProps {
     onGoHome: () => void;
     onSelectArticle: (articleId: string) => void;
     onGoToNextChapter: () => void;
+    onGoToVentureStudio: () => void;
 }
 
 const teamMembers = [
@@ -39,7 +40,7 @@ const teamMembers = [
 
 const teamDescription = "A leadership collective with extensive experience in business transformation, AI strategy, and organizational acceleration. The team brings together expertise across digital innovation, human-centered technology, and strategic execution, blending operational rigor with creative foresight.\n\nOur approach represents the fusion of business transformation and artificial intelligence, uniting strategic consultancy, creative intelligence, and technological execution. We redefine how organizations integrate strategy with intelligent, autonomous performance.";
 
-export const ConsultancyPage: React.FC<ConsultancyPageProps> = ({ onGoHome, onSelectArticle, onGoToNextChapter }) => {
+export const ConsultancyPage: React.FC<ConsultancyPageProps> = ({ onGoHome, onSelectArticle, onGoToNextChapter, onGoToVentureStudio }) => {
   const [isDiagnosisOpen, setIsDiagnosisOpen] = useState(false);
 
   const consultancyNavItems: NavItem[] = [
@@ -49,6 +50,7 @@ export const ConsultancyPage: React.FC<ConsultancyPageProps> = ({ onGoHome, onSe
       { name: "Success Stories", url: "#success-stories", icon: IconChartBar },
       { name: "Team", url: "#team", icon: UsersIcon },
       { name: "Resources", url: "#resources", icon: LayoutDashboardIcon },
+      { name: "Venture Studio", onClick: onGoToVentureStudio, icon: TentIcon },
       { name: "Next Chapter", onClick: onGoToNextChapter, icon: MailIcon },
   ];
 

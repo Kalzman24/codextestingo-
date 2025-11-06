@@ -21,7 +21,9 @@ interface TeamMember {
 // with HTMLSectionElement in some environments.
 // FIX: Using a more specific prop type (`ComponentPropsWithoutRef<'section'>`) to avoid generic attribute conflicts
 // that can cause misleading 'type never' errors on `key` props within the component.
-type TeamSectionProps = Omit<React.ComponentPropsWithoutRef<"section">, "title"> & {
+// FIX: Removed Omit from the type definition to simplify it and resolve a cascading type inference issue
+// that caused errors on `key` props within map functions. Overriding `title` via intersection is sufficient.
+type TeamSectionProps = React.ComponentPropsWithoutRef<"section"> & {
   title: string;
   description: string;
   members: TeamMember[];

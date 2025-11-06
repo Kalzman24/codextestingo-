@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { GatewayPage } from './components/GatewayPage';
 import { ConsultancyPage } from './components/ConsultancyPage';
 import { VentureStudioPage } from './components/VentureStudioPage';
 import { ArticlePage } from './components/ArticlePage';
@@ -7,12 +6,21 @@ import { articles } from './data/articles';
 import { NextChapterPage } from './components/ContactSection';
 
 const App: React.FC = () => {
-  const [page, setPage] = useState<'gateway' | 'consultancy' | 'venture' | 'nextchapter'>('gateway');
-  const [previousPage, setPreviousPage] = useState<'gateway' | 'consultancy' | 'venture'>('gateway');
+  const [page, setPage] = useState<'consultancy' | 'venture' | 'nextchapter'>('consultancy');
+  const [previousPage, setPreviousPage] = useState<'consultancy' | 'venture'>('consultancy');
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
 
-  const showConsultancy = () => setPage('consultancy');
-  const showVentureStudio = () => setPage('venture');
+  const showConsultancy = () => {
+    setPage('consultancy');
+    setSelectedArticleId(null);
+    window.scrollTo(0, 0);
+  };
+  const showVentureStudio = () => {
+    setPage('venture');
+    setSelectedArticleId(null);
+    window.scrollTo(0, 0);
+  };
+
   const showNextChapter = () => {
     if (page !== 'nextchapter') {
       setPreviousPage(page);
@@ -20,10 +28,6 @@ const App: React.FC = () => {
     setPage('nextchapter');
     window.scrollTo(0, 0);
   };
-  const showGateway = () => {
-    setPage('gateway');
-    setSelectedArticleId(null);
-  }
 
   const handleBackFromNextChapter = () => {
     setPage(previousPage);
@@ -57,14 +61,14 @@ const App: React.FC = () => {
   }
 
   if (page === 'consultancy') {
-    return <ConsultancyPage onGoHome={showGateway} onSelectArticle={handleSelectArticle} onGoToNextChapter={showNextChapter} />;
+    return <ConsultancyPage onGoHome={showConsultancy} onSelectArticle={handleSelectArticle} onGoToNextChapter={showNextChapter} onGoToVentureStudio={showVentureStudio} />;
   }
 
   if (page === 'venture') {
-    return <VentureStudioPage onGoHome={showGateway} onGoToNextChapter={showNextChapter} />;
+    return <VentureStudioPage onGoHome={showConsultancy} onGoToNextChapter={showNextChapter} onGoToConsultancy={showConsultancy} />;
   }
 
-  return <GatewayPage onSelectConsultancy={showConsultancy} onSelectVenture={showVentureStudio} />;
+  return <ConsultancyPage onGoHome={showConsultancy} onSelectArticle={handleSelectArticle} onGoToNextChapter={showNextChapter} onGoToVentureStudio={showVentureStudio} />;
 };
 
 export default App;

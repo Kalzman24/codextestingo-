@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from './Button';
-import { MailIcon, UsersIcon, IconRoute, PlayIcon } from './Icons';
+import { MailIcon, UsersIcon, IconRoute, PlayIcon, IconTerminal2 } from './Icons';
 import { Timeline } from './Timeline';
 import { Scene } from './Scene';
 import { cn } from '../lib/utils';
@@ -161,14 +161,16 @@ function ElegantShape({
 interface VentureStudioPageProps {
     onGoHome: () => void;
     onGoToNextChapter: () => void;
+    onGoToConsultancy: () => void;
 }
 
-export const VentureStudioPage: React.FC<VentureStudioPageProps> = ({ onGoHome, onGoToNextChapter }) => {
+export const VentureStudioPage: React.FC<VentureStudioPageProps> = ({ onGoHome, onGoToNextChapter, onGoToConsultancy }) => {
     
     const ventureNavItems: NavItem[] = [
       { name: "Journey", url: "#journey", icon: IconRoute },
       { name: "Vision", url: "#vision", icon: PlayIcon },
       { name: "Partnership", url: "#partnership", icon: UsersIcon },
+      { name: "Consultancy", onClick: onGoToConsultancy, icon: IconTerminal2 },
       { name: "Apply", onClick: onGoToNextChapter, icon: MailIcon },
     ];
 

@@ -1,5 +1,8 @@
-// FIX: Removed the triple-slash directive as it was pointing to a non-existent type definition file, causing a build error.
-// The JSX elements for react-three-fiber are expected to be resolved by the project's tsconfig.
+// FIX: Add a side-effect import to explicitly load TypeScript augmentations
+// for react-three-fiber, which defines custom JSX elements like <mesh>,
+// <group>, etc., and resolves errors about these properties not existing on
+// JSX.IntrinsicElements.
+import '@react-three/fiber';
 
 'use client';
 
