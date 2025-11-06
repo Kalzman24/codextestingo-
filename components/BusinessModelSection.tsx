@@ -15,7 +15,7 @@ const cardItems = [
 
 export const BusinessModelSection: React.FC<{ id: string }> = ({ id }) => {
   return (
-    <section id={id} className="bg-[#0a0a0a] text-white min-h-screen flex flex-col justify-center scroll-mt-20 py-24 sm:py-32">
+    <section id={id} className="bg-[#0a0a0a] text-white min-h-screen flex flex-col justify-center scroll-mt-20 snap-start py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">

@@ -96,7 +96,7 @@ const EtherealBeamsHero: React.FC<{ id: string; onStartDiagnosis: () => void; }>
     const prefersReducedMotion = usePrefersReducedMotion();
 
     return (
-        <section id={id} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-neutral-950">
+        <section id={id} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-neutral-950 snap-start">
             <div className="absolute inset-0">
                 <FloatingPaths position={1} />
                 <FloatingPaths position={-1} />

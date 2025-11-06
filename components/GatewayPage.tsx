@@ -157,7 +157,7 @@ export const GatewayPage: React.FC<GatewayPageProps> = ({ onSelectConsultancy, o
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">WhiteSpaceInc</h1>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">Whitespace Inc.</h1>
           <p className="mt-4 text-lg md:text-xl text-white/60">Ready for your next chapter?</p>
         </motion.div>
 

@@ -21,8 +21,7 @@ type IconComponent = React.FC<React.SVGProps<SVGSVGElement>>;
 
 export interface NavItem {
   name: string;
-  url?: string;
-  onClick?: () => void;
+  url: string;
   icon: IconComponent;
 }
 
@@ -38,21 +37,16 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, url:string) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
-    
-    if (item.onClick) {
-        item.onClick();
-        setActiveTab(item.name);
-    } else if (item.url) {
-        const targetId = item.url.substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-        setActiveTab(item.name);
+    const targetId = url.substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
     }
+    const navItem = navItems.find(item => item.url === url);
+    if(navItem) setActiveTab(navItem.name);
   };
   
   useEffect(() => {
@@ -68,20 +62,14 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
     };
 
     const handleScroll = () => {
-        const sections = navItems
-            .filter(item => item.url)
-            .map(item => document.getElementById(item.url!.substring(1)));
-
+        const sections = navItems.map(item => document.getElementById(item.url.substring(1)));
         const scrollPosition = window.scrollY + 150;
 
         for (let i = sections.length - 1; i >= 0; i--) {
             const section = sections[i];
             if (section && section.offsetTop <= scrollPosition) {
-                const correspondingNavItem = navItems.find(item => item.url === `#${section.id}`);
-                if (correspondingNavItem) {
-                    setActiveTab(correspondingNavItem.name);
-                    break;
-                }
+                setActiveTab(navItems[i].name);
+                break;
             }
         }
     };
@@ -98,7 +86,7 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
         <div className="flex w-full max-w-sm md:w-full md:max-w-4xl items-center justify-between bg-[#0a0a0a]/50 border border-white/10 backdrop-blur-lg py-1 px-4 rounded-full shadow-lg">
           
           <button onClick={onGoHome} className="text-white font-bold text-sm whitespace-nowrap hover:text-white/80 transition-colors">
-              WhiteSpaceInc
+              White Space
           </button>
           
           <div className="hidden md:flex items-center gap-1">
@@ -107,8 +95,8 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
               return (
                 <a
                   key={item.name}
-                  href={item.url || '#'}
-                  onClick={(e) => handleNavClick(e, item)}
+                  href={item.url}
+                  onClick={(e) => handleNavClick(e, item.url)}
                   className={cn(
                     "relative cursor-pointer text-sm font-semibold px-4 py-2 rounded-full transition-colors",
                     "text-white/80 hover:text-white",
@@ -201,8 +189,8 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
                   return (
                     <a
                       key={item.name}
-                      href={item.url || '#'}
-                      onClick={(e) => handleNavClick(e, item)}
+                      href={item.url}
+                      onClick={(e) => handleNavClick(e, item.url)}
                       className={cn(
                         "relative w-full cursor-pointer text-md font-semibold px-4 py-3 rounded-xl transition-colors flex items-center gap-4",
                         "text-white/80 hover:text-white hover:bg-white/5",

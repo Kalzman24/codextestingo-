@@ -1,5 +1,6 @@
 "use client";
 import {
+  useMotionValueEvent,
   useScroll,
   useTransform,
   motion,
@@ -17,24 +18,15 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const handleResize = () => {
-      setHeight(element.offsetHeight);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Initial calculation
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setHeight(rect.height);
+    }
+  }, [ref]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"],
+    offset: ["start 10%", "end 50%"],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);

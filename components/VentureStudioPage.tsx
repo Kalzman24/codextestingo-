@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from './Button';
-import { MailIcon, UsersIcon, IconRoute, PlayIcon, IconTerminal2 } from './Icons';
+import { MailIcon, UsersIcon, IconRoute } from './Icons';
+import { ContactSection } from './ContactSection';
 import { Timeline } from './Timeline';
 import { Scene } from './Scene';
 import { cn } from '../lib/utils';
 import { NavBar, type NavItem } from './NavBar';
-import { VideoSection } from './VideoSection';
+import { DiagnosisModal } from './DiagnosisModal';
 
 const journeySteps = [
     {
@@ -158,33 +159,28 @@ function ElegantShape({
     );
 }
 
-interface VentureStudioPageProps {
-    onGoHome: () => void;
-    onGoToNextChapter: () => void;
-    onGoToConsultancy: () => void;
-}
+const ventureNavItems: NavItem[] = [
+  { name: "Journey", url: "#journey", icon: IconRoute },
+  { name: "Partnership", url: "#partnership", icon: UsersIcon },
+  { name: "Apply", url: "#apply", icon: MailIcon },
+];
 
-export const VentureStudioPage: React.FC<VentureStudioPageProps> = ({ onGoHome, onGoToNextChapter, onGoToConsultancy }) => {
+export const VentureStudioPage: React.FC<{ onGoHome: () => void; }> = ({ onGoHome }) => {
     
-    const ventureNavItems: NavItem[] = [
-      { name: "Journey", url: "#journey", icon: IconRoute },
-      { name: "Vision", url: "#vision", icon: PlayIcon },
-      { name: "Partnership", url: "#partnership", icon: UsersIcon },
-      { name: "Consultancy", onClick: onGoToConsultancy, icon: IconTerminal2 },
-      { name: "Apply", onClick: onGoToNextChapter, icon: MailIcon },
-    ];
-
     const handleApplyClick = (e: React.MouseEvent) => {
         e.preventDefault();
-        onGoToNextChapter();
+        const contactSection = document.getElementById('apply');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
     };
     
     return (
-        <main className="bg-[#0a0a0a] text-white">
+        <main className="bg-[#0a0a0a] text-white h-screen overflow-y-scroll snap-y snap-mandatory">
             <NavBar navItems={ventureNavItems} showDiagnosisButton={false} onGoHome={onGoHome} />
 
             {/* Hero Section */}
-            <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+            <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden snap-start">
                 <div className="absolute inset-0 z-0 bg-black">
                     <Scene />
                 </div>
@@ -210,15 +206,25 @@ export const VentureStudioPage: React.FC<VentureStudioPageProps> = ({ onGoHome, 
             </section>
             
             {/* Founder's Journey Section */}
-            <section id="journey" className="scroll-mt-20">
+            <section id="journey" className="snap-start scroll-mt-20">
                 <Timeline data={timelineData} />
             </section>
 
-            {/* Vision Video Section */}
-            <VideoSection id="vision" />
+            {/* CTA Section */}
+            <section className="py-24 bg-white text-black snap-start scroll-mt-20">
+                <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+                    <h3 className="text-3xl font-bold">Ready to build with us?</h3>
+                    <p className="mt-4 text-lg text-gray-600">Let’s turn your idea — or your momentum — into something unstoppable.</p>
+                    <div className="mt-8">
+                        <Button onClick={handleApplyClick} size="lg" variant="dark" theme="light" className="font-semibold">
+                            Join the Journey
+                        </Button>
+                    </div>
+                </div>
+            </section>
 
             {/* Partnership Model Section */}
-            <section id="partnership" className="py-24 sm:py-32 relative overflow-hidden scroll-mt-20">
+            <section id="partnership" className="py-24 sm:py-32 relative overflow-hidden snap-start scroll-mt-20">
                 <div className="absolute inset-0 z-0">
                     <ElegantShape
                         delay={0.3}
@@ -258,19 +264,8 @@ export const VentureStudioPage: React.FC<VentureStudioPageProps> = ({ onGoHome, 
                     </div>
                 </div>
             </section>
-
-            {/* CTA Section */}
-            <section className="py-24 bg-white text-black scroll-mt-20">
-                <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-                    <h3 className="text-3xl font-bold">Ready to build with us?</h3>
-                    <p className="mt-4 text-lg text-gray-600">Let’s turn your idea — or your momentum — into something unstoppable.</p>
-                    <div className="mt-8">
-                        <Button onClick={handleApplyClick} size="lg" variant="dark" theme="light" className="font-semibold">
-                            Join the Journey
-                        </Button>
-                    </div>
-                </div>
-            </section>
+            
+            <ContactSection id="apply" />
         </main>
     );
 };

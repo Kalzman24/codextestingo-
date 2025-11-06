@@ -1,6 +1,5 @@
 
 
-
 import React, { useState, useEffect } from 'react';
 import {
     IconTerminal2,
@@ -98,7 +97,7 @@ export const OurEdgeSection: React.FC<{ id: string }> = ({ id }) => {
     const prefersReducedMotion = usePrefersReducedMotion();
 
     return (
-        <section id={id} className="bg-[#0a0a0a] text-white min-h-screen flex flex-col justify-center scroll-mt-20 py-24 sm:py-32">
+        <section id={id} className="bg-[#0a0a0a] text-white min-h-screen flex flex-col justify-center scroll-mt-20 snap-start py-24 sm:py-32">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                  <motion.div 
                     className="text-center mb-12 sm:mb-16"

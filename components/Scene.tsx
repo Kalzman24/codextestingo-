@@ -1,8 +1,6 @@
-// FIX: Add a side-effect import to explicitly load TypeScript augmentations
-// for react-three-fiber, which defines custom JSX elements like <mesh>,
-// <group>, etc., and resolves errors about these properties not existing on
-// JSX.IntrinsicElements.
-import '@react-three/fiber';
+// FIX: Added a triple-slash directive to include react-three-fiber's JSX type definitions, 
+// which resolves errors where TypeScript could not find JSX elements like `mesh`, `group`, and `meshPhysicalMaterial`.
+/// <reference types="@react-three/fiber/patch-jsx-runtime" />
 
 'use client';
 
@@ -105,9 +103,7 @@ const AnimatedBoxes = () => {
 };
 
 export const Scene = () => {
-    // FIX: Explicitly typed the useState hook with a tuple `[number, number, number]` to ensure `cameraPosition`
-    // is not inferred as a generic `number[]`, which is incompatible with the `camera.position` prop.
-    const [cameraPosition, setCameraPosition] = React.useState<[number, number, number]>([5, 5, 20]);
+    const [cameraPosition, setCameraPosition] = React.useState([5, 5, 20]);
 
     return (
         <div className="w-full h-full z-0">

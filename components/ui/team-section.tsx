@@ -14,27 +14,17 @@ interface TeamMember {
   socialLinks?: SocialLink[];
 }
 
-// FIX: Changed from an interface to a type alias to fix complex type inheritance issues with forwardRef.
-// Using a type alias with an intersection seems to resolve the "Type 'string' is not assignable to type 'never'"
-// error, similar to fixes in other components like button.tsx.
-// FIX: The component renders a <section> element. The ref type is set to HTMLElement to avoid type resolution issues
-// with HTMLSectionElement in some environments.
-// FIX: Using a more specific prop type (`ComponentPropsWithoutRef<'section'>`) to avoid generic attribute conflicts
-// that can cause misleading 'type never' errors on `key` props within the component.
-// FIX: Removed Omit from the type definition to simplify it and resolve a cascading type inference issue
-// that caused errors on `key` props within map functions. Overriding `title` via intersection is sufficient.
-type TeamSectionProps = React.ComponentPropsWithoutRef<"section"> & {
+interface TeamSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   description: string;
   members: TeamMember[];
   registerLink?: string;
   logo?: React.ReactNode;
   socialLinksMain?: SocialLink[];
-};
+}
 
 // TeamSection Component
-// FIX: Changed from HTMLSectionElement to HTMLElement to fix type resolution errors.
-export const TeamSection = React.forwardRef<HTMLElement, TeamSectionProps>(
+export const TeamSection = React.forwardRef<HTMLDivElement, TeamSectionProps>(
   (
     {
       title,
@@ -109,9 +99,9 @@ export const TeamSection = React.forwardRef<HTMLElement, TeamSectionProps>(
           {/* Main Social Links */}
           {socialLinksMain && socialLinksMain.length > 0 && (
             <div className="relative z-10 flex w-full items-center justify-center gap-4 py-4 md:justify-center">
-              {socialLinksMain.map((link) => (
+              {socialLinksMain.map((link, index) => (
                 <a
-                  key={link.href}
+                  key={index}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -131,7 +121,7 @@ export const TeamSection = React.forwardRef<HTMLElement, TeamSectionProps>(
           <div className="relative z-10 mx-auto grid w-full max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
             {members.map((member, index) => (
               <div
-                key={member.name}
+                key={index}
                 className="group relative flex flex-col items-center justify-end overflow-hidden rounded-xl bg-card p-6 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl"
                 style={{
                   backgroundColor: "hsl(var(--muted))",
@@ -166,9 +156,9 @@ export const TeamSection = React.forwardRef<HTMLElement, TeamSectionProps>(
                 {/* Social Links for individual members */}
                 {member.socialLinks && member.socialLinks.length > 0 && (
                   <div className="relative z-10 mt-4 flex gap-3 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
-                    {member.socialLinks.map((link) => (
+                    {member.socialLinks.map((link, linkIndex) => (
                       <a
-                        key={link.href}
+                        key={linkIndex}
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"

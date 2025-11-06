@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Button from './Button';
@@ -47,9 +48,6 @@ const IntroScreen: React.FC<{onStart: (context: { industry: string; goal: string
     
     return (
         <motion.div variants={containerVariants} initial="hidden" animate="visible" exit="exit" className="text-center">
-            <motion.p variants={itemVariants} className={`text-sm font-semibold uppercase tracking-wider mb-3 ${theme === 'light' ? 'text-blue-600' : 'text-blue-400'}`}>
-                Get Your Free AI Readiness Report in Under 1 Minute
-            </motion.p>
             <motion.h2 variants={itemVariants} className="text-4xl sm:text-5xl font-bold mb-4">AI Readiness Diagnosis</motion.h2>
             <motion.p variants={itemVariants} className={`text-lg sm:text-xl max-w-3xl mx-auto ${theme === 'light' ? 'text-gray-600' : 'text-white/70'}`}>
                 First, tell us about your business. This context allows our AI to provide a more accurate and relevant analysis.
@@ -95,67 +93,18 @@ const IntroScreen: React.FC<{onStart: (context: { industry: string; goal: string
     );
 };
 
-const loadingSteps = [
-    "Evaluating AI adoption...",
-    "Assessing data maturity...",
-    "Analyzing process automation...",
-    "Gauging technical readiness...",
-    "Calculating readiness score...",
-    "Generating personalized insights...",
-];
-
-const LoadingScreen: React.FC = () => {
-    const [currentStepIndex, setCurrentStepIndex] = useState(0);
-    const durationPerStep = 1500; // 1.5 seconds per step
-    const totalDuration = (loadingSteps.length - 1) * durationPerStep;
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentStepIndex((prevIndex) => (prevIndex + 1) % loadingSteps.length);
-        }, durationPerStep); 
-
-        return () => clearInterval(interval);
-    }, []);
-    
-    return (
-        <motion.div
-            key="loading"
-            variants={containerVariants} initial="hidden" animate="visible" exit="exit"
-            className="text-center flex flex-col items-center justify-center min-h-[400px]">
-            <motion.div variants={itemVariants}>
-                <RefreshCwIcon className="w-16 h-16 text-white/80 animate-spin"/>
-            </motion.div>
-            <motion.h2 variants={itemVariants} className="text-3xl font-bold mt-8">Analyzing your results...</motion.h2>
-            
-            <motion.div variants={itemVariants} className="w-full max-w-xs mx-auto mt-8">
-                <div className="w-full bg-white/10 rounded-full h-2">
-                    <motion.div
-                        className="bg-white h-2 rounded-full"
-                        initial={{ width: "0%" }}
-                        animate={{ width: "95%" }}
-                        transition={{ duration: totalDuration / 1000, ease: "linear" }}
-                    />
-                </div>
-            </motion.div>
-
-            <div className="mt-4 text-lg text-white/70 h-8 relative w-full">
-                <AnimatePresence mode="wait">
-                    <motion.p
-                        key={currentStepIndex}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.4, ease: 'easeInOut' }}
-                        className="absolute inset-0"
-                    >
-                        {loadingSteps[currentStepIndex]}
-                    </motion.p>
-                </AnimatePresence>
-            </div>
+const LoadingScreen: React.FC = () => (
+    <motion.div
+        key="loading"
+        variants={containerVariants} initial="hidden" animate="visible" exit="exit"
+        className="text-center flex flex-col items-center justify-center min-h-[400px]">
+        <motion.div variants={itemVariants}>
+            <RefreshCwIcon className="w-16 h-16 text-white/80 animate-spin"/>
         </motion.div>
-    );
-};
-
+        <motion.h2 variants={itemVariants} className="text-3xl font-bold mt-8">Analyzing your results...</motion.h2>
+        <motion.p variants={itemVariants} className="text-lg text-white/70 mt-2">Our AI is crafting your personalized readiness summary.</motion.p>
+    </motion.div>
+);
 
 const ResultsScreen: React.FC<{result: AnalysisResult, onRetake: () => void, onFinish: () => void, onContact: () => void, theme: 'light' | 'dark'}> = ({ result, onRetake, onFinish, onContact, theme }) => {
     return (

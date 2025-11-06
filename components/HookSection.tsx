@@ -62,14 +62,14 @@ const AccordionItem: React.FC<{item: {title: string, description: string}, isAct
 
 // --- Main Section Component ---
 export const HookSection: React.FC<{ id: string, onStartDiagnosis: () => void }> = ({ id, onStartDiagnosis }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
 
   const handleItemHover = (index: number) => {
     setActiveIndex(index);
   };
 
   return (
-    <section id={id} className="bg-white text-black min-h-screen flex flex-col justify-center scroll-mt-20 py-24 sm:py-32">
+    <section id={id} className="bg-white text-black min-h-screen flex flex-col justify-center scroll-mt-20 snap-start py-24 sm:py-32">
         <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between gap-12">
                 

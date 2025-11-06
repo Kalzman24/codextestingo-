@@ -52,7 +52,7 @@ export const TimeAdvantageSection: React.FC<{ id: string; onStartDiagnosis: () =
   const { containerVariants, itemVariants } = getVariants(prefersReducedMotion);
   
   return (
-    <section id={id} className="bg-white text-black min-h-screen flex flex-col justify-center py-24 sm:py-32 scroll-mt-20">
+    <section id={id} className="bg-white text-black min-h-screen flex flex-col justify-center py-24 sm:py-32 scroll-mt-20 snap-start">
       <motion.div 
         className="max-w-7xl mx-auto px-6 lg:px-8 w-full"
         initial="hidden"
