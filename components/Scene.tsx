@@ -1,12 +1,19 @@
-// FIX: Added a triple-slash directive to include react-three-fiber's JSX type definitions, 
-// which resolves errors where TypeScript could not find JSX elements like `mesh`, `group`, and `meshPhysicalMaterial`.
-/// <reference types="@react-three/fiber/patch-jsx-runtime" />
+// FIX: Removed the triple-slash directive as it was pointing to a non-existent type definition file, causing a build error.
+// The JSX elements for react-three-fiber are expected to be resolved by the project's tsconfig.
 
 'use client';
 
+// FIX: Replaced the incorrect 'globals' import with direct module augmentation. This explicitly adds react-three-fiber's custom elements (like <mesh>, <group>) to TypeScript's JSX namespace, resolving the "does not exist on type 'JSX.IntrinsicElements'" errors that occur when the build environment prevents automatic type discovery.
 import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, ThreeElements } from '@react-three/fiber';
 import { Shape, ExtrudeGeometry, Group } from 'three';
+
+declare global {
+    namespace JSX {
+        interface IntrinsicElements extends ThreeElements {}
+    }
+}
+
 
 // FIX: Changed to use React.FC to make its component type explicit, resolving a type error
 // where TypeScript incorrectly flagged the special 'key' prop as an invalid property.
@@ -103,7 +110,9 @@ const AnimatedBoxes = () => {
 };
 
 export const Scene = () => {
-    const [cameraPosition, setCameraPosition] = React.useState([5, 5, 20]);
+    // FIX: Explicitly typed the useState hook with a tuple `[number, number, number]` to ensure `cameraPosition`
+    // is not inferred as a generic `number[]`, which is incompatible with the `camera.position` prop.
+    const [cameraPosition, setCameraPosition] = React.useState<[number, number, number]>([5, 5, 20]);
 
     return (
         <div className="w-full h-full z-0">

@@ -14,17 +14,24 @@ interface TeamMember {
   socialLinks?: SocialLink[];
 }
 
-interface TeamSectionProps extends React.HTMLAttributes<HTMLDivElement> {
+// FIX: Changed from an interface to a type alias to fix complex type inheritance issues with forwardRef.
+// Using a type alias with an intersection seems to resolve the "Type 'string' is not assignable to type 'never'"
+// error, similar to fixes in other components like button.tsx.
+// FIX: The component renders a <section> element, so the ref and attributes should be for HTMLElement, not HTMLDivElement.
+// This mismatch can cause cascading type errors within the component.
+// FIX: Using a more specific prop type (`ComponentPropsWithoutRef<'section'>`) to avoid generic attribute conflicts
+// that can cause misleading 'type never' errors on `key` props within the component.
+type TeamSectionProps = Omit<React.ComponentPropsWithoutRef<"section">, "title"> & {
   title: string;
   description: string;
   members: TeamMember[];
   registerLink?: string;
   logo?: React.ReactNode;
   socialLinksMain?: SocialLink[];
-}
+};
 
 // TeamSection Component
-export const TeamSection = React.forwardRef<HTMLDivElement, TeamSectionProps>(
+export const TeamSection = React.forwardRef<HTMLElement, TeamSectionProps>(
   (
     {
       title,
@@ -99,9 +106,9 @@ export const TeamSection = React.forwardRef<HTMLDivElement, TeamSectionProps>(
           {/* Main Social Links */}
           {socialLinksMain && socialLinksMain.length > 0 && (
             <div className="relative z-10 flex w-full items-center justify-center gap-4 py-4 md:justify-center">
-              {socialLinksMain.map((link, index) => (
+              {socialLinksMain.map((link) => (
                 <a
-                  key={index}
+                  key={link.href}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -121,7 +128,7 @@ export const TeamSection = React.forwardRef<HTMLDivElement, TeamSectionProps>(
           <div className="relative z-10 mx-auto grid w-full max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
             {members.map((member, index) => (
               <div
-                key={index}
+                key={member.name}
                 className="group relative flex flex-col items-center justify-end overflow-hidden rounded-xl bg-card p-6 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-2xl"
                 style={{
                   backgroundColor: "hsl(var(--muted))",

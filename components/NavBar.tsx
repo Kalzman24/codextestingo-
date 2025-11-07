@@ -21,7 +21,8 @@ type IconComponent = React.FC<React.SVGProps<SVGSVGElement>>;
 
 export interface NavItem {
   name: string;
-  url: string;
+  url?: string;
+  onClick?: () => void;
   icon: IconComponent;
 }
 
@@ -37,16 +38,21 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, url:string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
-    const targetId = url.substring(1);
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
+    
+    if (item.onClick) {
+        item.onClick();
+        setActiveTab(item.name);
+    } else if (item.url) {
+        const targetId = item.url.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+        setActiveTab(item.name);
     }
-    const navItem = navItems.find(item => item.url === url);
-    if(navItem) setActiveTab(navItem.name);
   };
   
   useEffect(() => {
@@ -62,14 +68,20 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
     };
 
     const handleScroll = () => {
-        const sections = navItems.map(item => document.getElementById(item.url.substring(1)));
+        const sections = navItems
+            .filter(item => item.url)
+            .map(item => document.getElementById(item.url!.substring(1)));
+
         const scrollPosition = window.scrollY + 150;
 
         for (let i = sections.length - 1; i >= 0; i--) {
             const section = sections[i];
             if (section && section.offsetTop <= scrollPosition) {
-                setActiveTab(navItems[i].name);
-                break;
+                const correspondingNavItem = navItems.find(item => item.url === `#${section.id}`);
+                if (correspondingNavItem) {
+                    setActiveTab(correspondingNavItem.name);
+                    break;
+                }
             }
         }
     };
@@ -95,8 +107,8 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
               return (
                 <a
                   key={item.name}
-                  href={item.url}
-                  onClick={(e) => handleNavClick(e, item.url)}
+                  href={item.url || '#'}
+                  onClick={(e) => handleNavClick(e, item)}
                   className={cn(
                     "relative cursor-pointer text-sm font-semibold px-4 py-2 rounded-full transition-colors",
                     "text-white/80 hover:text-white",
@@ -189,8 +201,8 @@ const _NavBar: React.FC<NavBarProps> = ({ navItems, onStartDiagnosis, onGoHome, 
                   return (
                     <a
                       key={item.name}
-                      href={item.url}
-                      onClick={(e) => handleNavClick(e, item.url)}
+                      href={item.url || '#'}
+                      onClick={(e) => handleNavClick(e, item)}
                       className={cn(
                         "relative w-full cursor-pointer text-md font-semibold px-4 py-3 rounded-xl transition-colors flex items-center gap-4",
                         "text-white/80 hover:text-white hover:bg-white/5",

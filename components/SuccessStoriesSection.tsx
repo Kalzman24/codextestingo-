@@ -39,7 +39,7 @@ const caseStudies = [
 
 export const SuccessStoriesSection: React.FC<{ id: string }> = ({ id }) => {
   return (
-    <section id={id} className="bg-white text-black min-h-screen flex flex-col justify-center scroll-mt-20 snap-start py-24 sm:py-32">
+    <section id={id} className="bg-white text-black min-h-screen flex flex-col justify-center scroll-mt-20 py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight tracking-tighter">

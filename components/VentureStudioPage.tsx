@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from './Button';
 import { MailIcon, UsersIcon, IconRoute } from './Icons';
-import { ContactSection } from './ContactSection';
 import { Timeline } from './Timeline';
 import { Scene } from './Scene';
 import { cn } from '../lib/utils';
 import { NavBar, type NavItem } from './NavBar';
-import { DiagnosisModal } from './DiagnosisModal';
 
 const journeySteps = [
     {
@@ -159,28 +157,30 @@ function ElegantShape({
     );
 }
 
-const ventureNavItems: NavItem[] = [
-  { name: "Journey", url: "#journey", icon: IconRoute },
-  { name: "Partnership", url: "#partnership", icon: UsersIcon },
-  { name: "Apply", url: "#apply", icon: MailIcon },
-];
+interface VentureStudioPageProps {
+    onGoHome: () => void;
+    onGoToNextChapter: () => void;
+}
 
-export const VentureStudioPage: React.FC<{ onGoHome: () => void; }> = ({ onGoHome }) => {
+export const VentureStudioPage: React.FC<VentureStudioPageProps> = ({ onGoHome, onGoToNextChapter }) => {
     
+    const ventureNavItems: NavItem[] = [
+      { name: "Journey", url: "#journey", icon: IconRoute },
+      { name: "Partnership", url: "#partnership", icon: UsersIcon },
+      { name: "Apply", onClick: onGoToNextChapter, icon: MailIcon },
+    ];
+
     const handleApplyClick = (e: React.MouseEvent) => {
         e.preventDefault();
-        const contactSection = document.getElementById('apply');
-        if (contactSection) {
-          contactSection.scrollIntoView({ behavior: 'smooth' });
-        }
+        onGoToNextChapter();
     };
     
     return (
-        <main className="bg-[#0a0a0a] text-white h-screen overflow-y-scroll snap-y snap-mandatory">
+        <main className="bg-[#0a0a0a] text-white">
             <NavBar navItems={ventureNavItems} showDiagnosisButton={false} onGoHome={onGoHome} />
 
             {/* Hero Section */}
-            <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden snap-start">
+            <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
                 <div className="absolute inset-0 z-0 bg-black">
                     <Scene />
                 </div>
@@ -206,12 +206,12 @@ export const VentureStudioPage: React.FC<{ onGoHome: () => void; }> = ({ onGoHom
             </section>
             
             {/* Founder's Journey Section */}
-            <section id="journey" className="snap-start scroll-mt-20">
+            <section id="journey" className="scroll-mt-20">
                 <Timeline data={timelineData} />
             </section>
 
             {/* CTA Section */}
-            <section className="py-24 bg-white text-black snap-start scroll-mt-20">
+            <section className="py-24 bg-white text-black scroll-mt-20">
                 <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
                     <h3 className="text-3xl font-bold">Ready to build with us?</h3>
                     <p className="mt-4 text-lg text-gray-600">Let’s turn your idea — or your momentum — into something unstoppable.</p>
@@ -224,7 +224,7 @@ export const VentureStudioPage: React.FC<{ onGoHome: () => void; }> = ({ onGoHom
             </section>
 
             {/* Partnership Model Section */}
-            <section id="partnership" className="py-24 sm:py-32 relative overflow-hidden snap-start scroll-mt-20">
+            <section id="partnership" className="py-24 sm:py-32 relative overflow-hidden scroll-mt-20">
                 <div className="absolute inset-0 z-0">
                     <ElegantShape
                         delay={0.3}
@@ -264,8 +264,6 @@ export const VentureStudioPage: React.FC<{ onGoHome: () => void; }> = ({ onGoHom
                     </div>
                 </div>
             </section>
-            
-            <ContactSection id="apply" />
         </main>
     );
 };

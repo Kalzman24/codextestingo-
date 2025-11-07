@@ -1,5 +1,5 @@
 {
-  "name": "km-multi-split-white-space-inc.-ai-strategy-hero",
+  "name": "v2-with-urls-resources-split-white-space-inc.-ai-strategy-hero",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,7 +13,7 @@
     "react-dom": "^19.2.0",
     "three": "^0.180.0",
     "@react-three/drei": "^10.7.6",
-    "@react-three/fiber": "^9.3.0",
+    "@react-three/fiber": "^9.4.0",
     "framer-motion": "^11.3.11",
     "lucide-react": "^0.417.0",
     "@radix-ui/react-slot": "^1.1.0",
