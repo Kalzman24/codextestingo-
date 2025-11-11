@@ -16,6 +16,9 @@
         background-color: #000;
         color: #fff;
       }
+      .group:hover .animate-scroll {
+        animation-duration: var(--speed-on-hover) !important;
+      }
     </style>
   <script type="importmap">
 {
@@ -25,6 +28,23 @@
     "react": "https://aistudiocdn.com/react@^19.2.0"
   }
 }
+</script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        animation: {
+          scroll: 'scroll linear infinite',
+        },
+        keyframes: {
+          scroll: {
+            from: { transform: 'translateX(0)' },
+            to: { transform: 'translateX(-100%)' },
+          },
+        },
+      },
+    },
+  }
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
