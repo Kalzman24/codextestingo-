@@ -1,26 +1,27 @@
 import React from 'react';
+import ShaderBackground from './ShaderBackground';
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center text-center px-4 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 md:w-[600px] md:h-[600px] bg-orange-600/30 rounded-full filter blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-black/50"></div>
-      </div>
-      <div className="relative z-10 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-white leading-tight">
-          From entropy to intent — privately.
-        </h1>
-        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-          The private layer where high-level intent becomes intelligent connection.
-        </p>
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="px-8 py-3 border border-gray-600 text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 w-full sm:w-auto">
-            ENTER OUTSIDE
-          </button>
-          <button className="px-8 py-3 border border-orange-500 bg-orange-500/10 text-orange-400 rounded-full hover:bg-orange-500 hover:text-black transition-colors duration-300 w-full sm:w-auto">
-            REQUEST ACCESS
-          </button>
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
+      <ShaderBackground />
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="bg-black/40 backdrop-blur-md p-8 md:p-12 rounded-3xl">
+          <p className="text-orange-500 font-medium tracking-widest uppercase text-sm mb-4">From Chaos to Clarity</p>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-white tracking-tighter leading-tight">
+            A unified ecosystem for all your exclusive memberships.
+          </h1>
+           <p className="mt-6 max-w-3xl mx-auto text-lg text-gray-400">
+            Powered by explainable precision-driven member matching and intelligent network organization.
+          </p>
+          <div className="mt-10">
+            <a
+              href="#how-it-works"
+              className="bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-500 transition-all duration-300 transform hover:scale-105"
+            >
+              Get Started
+            </a>
+          </div>
         </div>
       </div>
     </section>
