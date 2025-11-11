@@ -1,24 +1,29 @@
+
 import React from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import HowItWorks from './components/HowItWorks';
-import Features from './components/Features';
-import Partners from './components/Partners';
+import HeroSection from './components/HeroSection';
+import PhilosophySection from './components/HowItWorksSection';
+import FeaturesSection from './components/FeaturesSection';
+import PartnersSection from './components/PartnersSection';
 import Footer from './components/Footer';
+import GradientGlow from './components/backgrounds/GradientGlow';
 
-const App: React.FC = () => {
+function App() {
   return (
-    <div className="bg-black min-h-screen">
-      <Header />
-      <main>
-        <Hero />
-        <HowItWorks />
-        <Features />
-        <Partners />
-      </main>
-      <Footer />
+    <div className="bg-black min-h-screen text-gray-200 antialiased">
+      <GradientGlow />
+      <div className="relative z-10">
+        <Header />
+        <main>
+          <HeroSection />
+          <PhilosophySection />
+          <FeaturesSection />
+          <PartnersSection />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
-};
+}
 
 export default App;
