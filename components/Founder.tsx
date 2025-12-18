@@ -36,7 +36,7 @@ const Founder: React.FC = () => {
               &ldquo;
             </span>
             <blockquote className="text-2xl md:text-4xl lg:text-5xl font-bold leading-[1.2] tracking-tighter text-brand-dark relative z-10">
-              One unexpected conversation changed the course of my life. There was nothing strategic about it, nothing planned. It simply happened — and afterwards, things were no longer the same.
+              One unexpected conversation changed the course of my life. There was nothing strategic about it, nothing planned. It simply happened and afterwards, things were no longer the same.
             </blockquote>
           </div>
 

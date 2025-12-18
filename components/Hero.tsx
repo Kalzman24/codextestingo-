@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-          <div className="pt-48 pb-32 px-6 max-w-7xl mx-auto flex flex-col items-center text-center" style={{ backgroundImage: `url(/Photos/70.jpg`), backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+    <div className="pt-48 pb-32 px-6 max-w-7xl mx-auto flex flex-col items-center text-center" style={{ backgroundImage: `u'/Photos/70.jpg'})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
       <div className="bg-brand-grey px-5 py-1.5 mb-10 rounded-full text-[10px] tracking-[0.3em] uppercase text-brand-dark">
         From Chaos to Clarity
       </div>
