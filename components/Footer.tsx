@@ -1,18 +1,20 @@
+
 import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer id="contact" className="border-t border-gray-800">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-extrabold text-white">Ready to bring clarity to your network?</h2>
-        <div className="mt-8">
-            <button type="button" className="inline-block bg-orange-500 text-black font-semibold px-8 py-3 rounded-md hover:bg-orange-400 transition-all duration-300 transform hover:scale-105">
-              Request an Invitation
-            </button>
+    <footer className="bg-white border-t border-brand-grey py-16 px-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="text-xl font-bold tracking-tighter">
+          My<span className="text-brand-orange">Ntropy</span> <span className="text-zinc-300 font-light ml-2">©</span>
         </div>
-        <p className="mt-8 text-center text-base text-gray-500">
-            &copy; {new Date().getFullYear()} MyNtropy. All rights reserved.
-        </p>
+        <div className="text-zinc-400 text-[10px] uppercase tracking-[0.2em]">
+          AI-powered network intelligence
+        </div>
+        <div className="flex gap-12 text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+          <span>Private by design</span>
+          <span>Explainable by default</span>
+        </div>
       </div>
     </footer>
   );

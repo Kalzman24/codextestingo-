@@ -1,29 +1,45 @@
 
 import React from 'react';
-import Header from './components/Header';
-import HeroSection from './components/HeroSection';
-import PhilosophySection from './components/HowItWorksSection';
-import FeaturesSection from './components/FeaturesSection';
-import PartnersSection from './components/PartnersSection';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import WhatItDoes from './components/WhatItDoes';
+import TheNeed from './components/TheNeed';
+import TheSystem from './components/TheSystem';
+import SixPillars from './components/SixPillars';
+import Founder from './components/Founder';
+import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
-import GradientGlow from './components/backgrounds/GradientGlow';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="bg-black min-h-screen text-gray-200 antialiased">
-      <GradientGlow />
-      <div className="relative z-10">
-        <Header />
-        <main>
-          <HeroSection />
-          <PhilosophySection />
-          <FeaturesSection />
-          <PartnersSection />
-        </main>
-        <Footer />
-      </div>
+    <div className="min-h-screen selection:bg-brand-orange selection:text-white bg-white">
+      <Navbar />
+      <main>
+        <div id="home">
+          <Hero />
+        </div>
+        <div id="what-it-does">
+          <WhatItDoes />
+        </div>
+        <div id="the-need">
+          <TheNeed />
+        </div>
+        <div id="the-system">
+          <TheSystem />
+        </div>
+        <div id="six-pillars">
+          <SixPillars />
+        </div>
+        <div id="founder">
+          <Founder />
+        </div>
+        <div id="get-access">
+          <CallToAction />
+        </div>
+      </main>
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;

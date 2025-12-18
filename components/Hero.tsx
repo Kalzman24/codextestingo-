@@ -1,30 +1,53 @@
-import React from 'react';
-import ShaderBackground from './ShaderBackground';
 
+import React from 'react';
 const Hero: React.FC = () => {
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
-      <ShaderBackground />
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="bg-black/40 backdrop-blur-md p-8 md:p-12 rounded-3xl">
-          <p className="text-orange-500 font-medium tracking-widest uppercase text-sm mb-4">From Chaos to Clarity</p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-white tracking-tighter leading-tight">
-            A unified ecosystem for all your exclusive memberships.
-          </h1>
-           <p className="mt-6 max-w-3xl mx-auto text-lg text-gray-400">
-            Powered by explainable precision-driven member matching and intelligent network organization.
-          </p>
-          <div className="mt-10">
-            <a
-              href="#how-it-works"
-              className="bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-500 transition-all duration-300 transform hover:scale-105"
-            >
-              Get Started
-            </a>
-          </div>
-        </div>
+          <div className="pt-48 pb-32 px-6 max-w-7xl mx-auto flex flex-col items-center text-center" style={{ backgroundImage: `url(/Photos/70.jpg`), backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+      <div className="bg-brand-grey px-5 py-1.5 mb-10 rounded-full text-[10px] tracking-[0.3em] uppercase text-brand-dark">
+        From Chaos to Clarity
       </div>
-    </section>
+      <h1 className="text-5xl md:text-7xl lg:text-8xl mb-12 leading-[1.1] tracking-tight max-w-6xl">
+        From chaos to clarity. <br />
+        <span className="text-brand-orange">From searching to matching.</span>
+      </h1>
+      <p className="text-lg md:text-xl text-zinc-500 max-w-2xl mb-14 font-bold uppercase tracking-tight leading-relaxed">
+        Turning identity, intent, and context into precise, explainable matches.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-6">
+        <a 
+          href="#the-system" 
+          onClick={(e) => handleScroll(e, '#the-system')}
+          className="px-12 py-5 bg-brand-orange text-white text-xs uppercase tracking-widest hover:brightness-110 transition-all rounded-sm"
+        >
+          Explore the System
+        </a>
+        <a 
+          href="#get-access" 
+          onClick={(e) => handleScroll(e, '#get-access')}
+          className="px-12 py-5 border-2 border-brand-grey text-brand-dark text-xs uppercase tracking-widest hover:bg-brand-grey transition-all rounded-sm"
+        >
+          Show Interest
+        </a>
+      </div>
+    </div>
   );
 };
 
